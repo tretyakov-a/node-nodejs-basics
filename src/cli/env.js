@@ -1,3 +1,15 @@
+const PREFIX = 'RSS_';
+const SEP = '; ';
+
 export const parseEnv = () => {
-    // Write your code here 
+  const rssVars = Object.keys(process.env)
+    .filter((key) => key.startsWith(PREFIX))
+    .reduce((acc, key) => {
+      const varString = `${key}=${process.env[key]}`;
+      return [ ...acc, varString ];
+    }, []);
+
+  console.log(rssVars.join(SEP));
 };
+
+parseEnv();
