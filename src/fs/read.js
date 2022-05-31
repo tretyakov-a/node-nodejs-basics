@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs';
+import fsPromises from 'fs/promises';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -9,21 +9,16 @@ const FILE_NAME = 'fileToRead.txt'
 const DIR_NAME = 'files';
 
 export const read = async () => {
-  const readStream = fs.createReadStream(
-    path.join(__dirname, DIR_NAME, FILE_NAME), 
-    { highWaterMark: 4 }
-  );
-  
-  readStream.on('data', (chunk) => {
-    process.stdout.write(chunk);
-  });
-  
-  readStream.on('error', (err) => {
+  try {
+    const pathToFile = path.join(__dirname, DIR_NAME, FILE_NAME);
+    const fileContent = await fsPromises.readFile(pathToFile, 'utf8');
+    console.log(fileContent);
+  } catch (err) {
     if (err.code === 'ENOENT') {
       throw new Error(ERROR_MSG);
     }
     console.error(err);
-  });
+  }
 };
 
 read();
