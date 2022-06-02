@@ -6,9 +6,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const ERROR_MSG = 'FS operation failed';
 const FILE_NAME = 'fileToRemove.txt';
+const DIR_NAME = 'files';
 
 export const remove = async () => {
-  const pathToFile = path.join(__dirname, 'files', FILE_NAME);
+  const pathToFile = path.join(__dirname, DIR_NAME, FILE_NAME);
   try {
     await fsPromises.rm(pathToFile);
   } catch (err) {
