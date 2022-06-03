@@ -12,11 +12,12 @@ const random = Math.random();
 
 let unknownObject;
 
-if (random > 0.5) {
-  unknownObject = await readFile(path.join(__dirname, 'files/a.json'), 'utf8');
-} else {
-  unknownObject = await readFile(path.join(__dirname, 'files/b.json'), 'utf8');
+const requireJson = async (source) => {
+  return JSON.parse(await readFile(path.join(__dirname, source), 'utf8'));
 }
+unknownObject = await requireJson(random > 0.5 ? 'files/a.json' : 'files/b.json');
+
+console.log(unknownObject);
 
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
