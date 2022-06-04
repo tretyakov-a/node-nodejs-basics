@@ -1,13 +1,11 @@
 import fsPromises from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { __dirname, FILES_DIR_NAME, ERRORS } from './constants.js';
+import FsOperationFailedError from './error.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const ERROR_MSG = 'FS operation failed';
 const WRONG_FILE_NAME = 'wrongFilename.txt';
 const PROPER_FILE_NAME = 'properFilename.md';
-const DIR_NAME = 'files';
 
 async function isFileExists(source) {
   try {
@@ -19,20 +17,22 @@ async function isFileExists(source) {
 }
 
 export const rename = async () => {
-  const oldPath = path.join(__dirname, DIR_NAME, WRONG_FILE_NAME);
-  const newPath = path.join(__dirname, DIR_NAME, PROPER_FILE_NAME);
+  const oldPath = path.join(__dirname, FILES_DIR_NAME, WRONG_FILE_NAME);
+  const newPath = path.join(__dirname, FILES_DIR_NAME, PROPER_FILE_NAME);
 
   if (await isFileExists(newPath)) {
-    throw new Error(ERROR_MSG);
+    throw new FsOperationFailedError(rename.name);
   }
+
   try {
     await fsPromises.rename(oldPath, newPath);
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      throw new Error(ERROR_MSG);
+    if (err.code === ERRORS.NO_ENTITY) {
+      throw new FsOperationFailedError(rename.name);
     }
     console.error(err);
   }
 };
 
-rename();
+rename()
+  .catch((err) => console.error(err));

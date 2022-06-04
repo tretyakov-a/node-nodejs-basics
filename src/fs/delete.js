@@ -1,23 +1,21 @@
 import fsPromises from 'fs/promises';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { __dirname, FILES_DIR_NAME, ERRORS } from './constants.js';
+import FsOperationFailedError from './error.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const ERROR_MSG = 'FS operation failed';
 const FILE_NAME = 'fileToRemove.txt';
-const DIR_NAME = 'files';
 
 export const remove = async () => {
-  const pathToFile = path.join(__dirname, DIR_NAME, FILE_NAME);
+  const pathToFile = path.join(__dirname, FILES_DIR_NAME, FILE_NAME);
   try {
     await fsPromises.rm(pathToFile);
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      throw new Error(ERROR_MSG);
+    if (err.code === ERRORS.NO_ENTITY) {
+      throw new FsOperationFailedError(remove.name);
     }
     console.error(err);
   }
 };
 
-remove();
+remove()
+  .catch((err) => console.error(err));

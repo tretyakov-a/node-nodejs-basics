@@ -1,23 +1,20 @@
 import fsPromises from 'fs/promises';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { __dirname, FILES_DIR_NAME, ERRORS } from './constants.js';
+import FsOperationFailedError from './error.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const DIR_NAME = 'files';
 const FILE_NAME = 'fresh.txt';
 const FILE_CONTENT = 'I am fresh and young';
-const ERROR_MSG = 'FS operation failed';
 
 export const create = async () => {
-  const pathToFile = path.join(__dirname, DIR_NAME, FILE_NAME);
+  const pathToFile = path.join(__dirname, FILES_DIR_NAME, FILE_NAME);
   let fd = null;
   try {
     fd = await fsPromises.open(pathToFile, 'wx');
     await fd.write(FILE_CONTENT);
   } catch (err) {
-    if (err.code === 'EEXIST') {
-      throw new Error(ERROR_MSG);
+    if (err.code === ERRORS.EXIST) {
+      throw new FsOperationFailedError(create.name);
     }
     console.error(err);
   } finally {
@@ -27,4 +24,5 @@ export const create = async () => {
   }
 };
 
-create();
+create()
+  .catch((err) => console.error(err));
