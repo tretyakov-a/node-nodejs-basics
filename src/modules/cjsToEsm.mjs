@@ -17,8 +17,6 @@ const requireJson = async (source) => {
 }
 unknownObject = await requireJson(random > 0.5 ? 'files/a.json' : 'files/b.json');
 
-console.log(unknownObject);
-
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
 console.log(`Path segment separator is "${path.sep}"`);
