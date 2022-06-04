@@ -9,7 +9,7 @@ const FILE_NAME = 'script.js';
 export const spawnChildProcess = async (args) => {
   const scriptSrc = path.join(__dirname, DIR_NAME, FILE_NAME);
 
-  const child = fork(scriptSrc, args, { stdio: 'inherit' });
+  const child = fork(scriptSrc, args);
 
   child.on('error', (err) => {
     console.error(err);
