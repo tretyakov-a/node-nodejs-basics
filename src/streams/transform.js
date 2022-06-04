@@ -6,7 +6,7 @@ const reverseString = (str) => str.split('').reverse().join('');
 export const transform = async () => {
   const reverseTransform = new Transform({
     transform(chunk, _, callback) {
-      const reversedString = reverseString(String(chunk).trim());
+      const reversedString = reverseString(String(chunk).slice(0, -1));
       callback(null, Buffer.from(`${reversedString}\n`));
     }
   });

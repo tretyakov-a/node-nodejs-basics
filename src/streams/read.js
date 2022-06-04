@@ -10,7 +10,7 @@ export const read = async () => {
   const pathToFile = path.join(__dirname, DIR_NAME, FILE_NAME);
   const readStream = fs.createReadStream(pathToFile);
   
-  readStream.on('end', () => console.log('\n'));
+  readStream.on('end', () => process.stdout.write('\n'));
   readStream.pipe(process.stdout, { end: false })
     .on('error', (err) => console.error(err));
 };
