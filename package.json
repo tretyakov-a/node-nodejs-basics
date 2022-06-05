@@ -13,6 +13,7 @@
     "cli:args": "node src/cli/args.js --propName value --prop2Name value2",
     "cli:env": "RSS_name1=value1 RSS_name2=value2 node src/cli/env.js",
     "cp": "node src/cp/cp.js",
+    "wt": "node src/wt/main.js",
     "hash": "node src/hash/calcHash.js",
     "modules": "node src/modules/cjsToEsm.mjs",
     "streams:read": "node src/streams/read.js",
