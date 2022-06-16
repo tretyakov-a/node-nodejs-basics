@@ -1,9 +1,9 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { Worker } from 'worker_threads';
 import os from 'os';
+import { getConstants } from '../constants.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const { __dirname } = getConstants(import.meta.url);
 
 const toWorker = (n) => {
   return new Promise((resolve, reject) => {

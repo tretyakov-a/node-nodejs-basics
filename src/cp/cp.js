@@ -1,13 +1,12 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { fork } from 'child_process';
+import { getConstants } from '../constants.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DIR_NAME = 'files';
+const { __dirname, FILES_DIR_NAME } = getConstants(import.meta.url);
 const FILE_NAME = 'script.js';
 
 export const spawnChildProcess = async (args) => {
-  const scriptSrc = path.join(__dirname, DIR_NAME, FILE_NAME);
+  const scriptSrc = path.join(__dirname, FILES_DIR_NAME, FILE_NAME);
 
   const child = fork(scriptSrc, args);
 

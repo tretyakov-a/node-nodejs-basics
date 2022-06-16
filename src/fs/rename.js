@@ -1,9 +1,10 @@
 import fsPromises from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
-import { __dirname, FILES_DIR_NAME, ERRORS } from './constants.js';
 import FsOperationFailedError from './error.js';
+import { getConstants } from '../constants.js';
 
+const { __dirname, FILES_DIR_NAME, ERRORS } = getConstants(import.meta.url);
 const WRONG_FILE_NAME = 'wrongFilename.txt';
 const PROPER_FILE_NAME = 'properFilename.md';
 

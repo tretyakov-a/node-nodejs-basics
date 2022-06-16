@@ -1,7 +1,9 @@
 import fsPromises from 'fs/promises';
 import path from 'path';
-import { __dirname, FILES_DIR_NAME, ERRORS } from './constants.js';
 import FsOperationFailedError from './error.js';
+import { getConstants } from '../constants.js';
+
+const { __dirname, FILES_DIR_NAME, ERRORS } = getConstants(import.meta.url);
 
 export const list = async () => {
   const source = path.join(__dirname, FILES_DIR_NAME); 

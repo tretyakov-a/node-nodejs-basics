@@ -1,8 +1,9 @@
 import fsPromises from 'fs/promises';
 import path from 'path';
-import { __dirname, FILES_DIR_NAME, ERRORS } from './constants.js';
 import FsOperationFailedError from './error.js';
+import { getConstants } from '../constants.js';
 
+const { __dirname, FILES_DIR_NAME, ERRORS } = getConstants(import.meta.url);
 const FILE_NAME = 'fresh.txt';
 const FILE_CONTENT = 'I am fresh and young';
 

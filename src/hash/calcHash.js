@@ -1,15 +1,13 @@
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
-import { fileURLToPath } from 'url';
+import { getConstants } from '../constants.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const DIR_NAME = 'files';
+const { __dirname, FILES_DIR_NAME } = getConstants(import.meta.url);
 const FILE_NAME = 'fileToCalculateHashFor.txt';
 
 export const calculateHash = async () => {
-  const pathToFile = path.join(__dirname, DIR_NAME, FILE_NAME);
+  const pathToFile = path.join(__dirname, FILES_DIR_NAME, FILE_NAME);
   const hash = crypto.createHash('sha256');
   hash.setEncoding('hex');
 
