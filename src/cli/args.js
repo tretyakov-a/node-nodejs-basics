@@ -1,7 +1,7 @@
 const ARGS_SEP = ", ";
 const ARG_PREFIX = "--";
 
-const propNameRegExp = new RegExp(`^${ARG_PREFIX}[\\w]{1,}[\\w]*$`);
+const propNameRegExp = new RegExp(`^${ARG_PREFIX}[\\w]{1,}[\\w-]*$`);
 const isValidPropName = (name) => propNameRegExp.test(name);
 
 const parseArgs = () => {
