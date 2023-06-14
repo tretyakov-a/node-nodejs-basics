@@ -1,10 +1,10 @@
-const ARGS_SEP = ', ';
-const ARG_PREFIX = '--';
+const ARGS_SEP = ", ";
+const ARG_PREFIX = "--";
 
 const propNameRegExp = new RegExp(`^${ARG_PREFIX}[\\w]{1,}[\\w]*$`);
 const isValidPropName = (name) => propNameRegExp.test(name);
 
-export const parseArgs = () => {
+const parseArgs = () => {
   const args = process.argv.slice(2);
   const argsAsNameValue = [];
   for (let i = 0; i < args.length; i += 2) {
@@ -18,7 +18,7 @@ export const parseArgs = () => {
     } else {
       throw new Error(`Argument name '${propName}' invalid`);
     }
-  };
+  }
   console.log(argsAsNameValue.join(ARGS_SEP));
 };
 

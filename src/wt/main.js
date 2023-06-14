@@ -1,16 +1,18 @@
-import path from 'path';
-import { Worker } from 'worker_threads';
-import os from 'os';
-import { getConstants } from '../constants.js';
+import path from "path";
+import { Worker } from "worker_threads";
+import os from "os";
+import { getConstants } from "../constants.js";
 
 const { __dirname } = getConstants(import.meta.url);
 
 const toWorker = (n) => {
   return new Promise((resolve, reject) => {
-    const worker = new Worker(path.join(__dirname, 'worker.js'), { workerData: { n } });
-    worker.on('message', (data) => resolve(data));
-    worker.on('error', (err) => reject(err));
-    worker.on('exit', (code) => {
+    const worker = new Worker(path.join(__dirname, "worker.js"), {
+      workerData: { n },
+    });
+    worker.on("message", (data) => resolve(data));
+    worker.on("error", (err) => reject(err));
+    worker.on("exit", (code) => {
       if (code !== 0)
         reject(new Error(`Worker stopped with exit code ${code}`));
     });
@@ -18,12 +20,12 @@ const toWorker = (n) => {
 };
 
 const toCorrectResult = ({ status, value, reason }) => {
-  const newStatus = status === 'fulfilled' ? 'resolved' : 'error';
+  const newStatus = status === "fulfilled" ? "resolved" : "error";
   const data = value === undefined ? null : value;
   return { status: newStatus, data };
 };
 
-export const performCalculations = async () => {
+const performCalculations = async () => {
   const cpusNumber = os.cpus().length;
   const startValue = 10;
   const data = Array.from({ length: cpusNumber }, (_, i) => startValue + i);
@@ -35,5 +37,4 @@ export const performCalculations = async () => {
   }
 };
 
-performCalculations()
-  .then((data) => console.log(data));
+performCalculations().then((data) => console.log(data));

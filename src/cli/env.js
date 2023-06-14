@@ -1,12 +1,12 @@
-const PREFIX = 'RSS_';
-const SEP = '; ';
+const PREFIX = "RSS_";
+const SEP = "; ";
 
-export const parseEnv = () => {
+const parseEnv = () => {
   const rssVars = Object.keys(process.env)
     .filter((key) => key.startsWith(PREFIX))
     .reduce((acc, key) => {
       const varString = `${key}=${process.env[key]}`;
-      return [ ...acc, varString ];
+      return [...acc, varString];
     }, []);
 
   console.log(rssVars.join(SEP));

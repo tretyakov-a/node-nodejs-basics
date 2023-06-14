@@ -1,15 +1,17 @@
-import fsPromises from 'fs/promises';
-import path from 'path';
-import FsOperationFailedError from './error.js';
-import { getConstants } from '../constants.js';
+import fsPromises from "fs/promises";
+import path from "path";
+import FsOperationFailedError from "./error.js";
+import { getConstants } from "../constants.js";
 
 const { __dirname, FILES_DIR_NAME, ERRORS } = getConstants(import.meta.url);
 
-export const list = async () => {
-  const source = path.join(__dirname, FILES_DIR_NAME); 
+const list = async () => {
+  const source = path.join(__dirname, FILES_DIR_NAME);
   try {
-    const filesStats = await fsPromises.readdir(source, { withFileTypes: true });
-    console.log(filesStats.map((file) => file.name).join('\n'));
+    const filesStats = await fsPromises.readdir(source, {
+      withFileTypes: true,
+    });
+    console.log(filesStats.map((file) => file.name).join("\n"));
   } catch (err) {
     if (err.code === ERRORS.NO_ENTITY) {
       throw new FsOperationFailedError(list.name);
@@ -18,5 +20,4 @@ export const list = async () => {
   }
 };
 
-list()
-  .catch((err) => console.error(err));
+list().catch((err) => console.error(err));

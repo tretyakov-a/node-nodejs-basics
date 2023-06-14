@@ -1,6 +1,6 @@
-import { zip, options } from './zip.js';
+import { zip, options } from "./zip.js";
 
-export const decompress = async () => {
+const decompress = async () => {
   await zip(options.decompress);
 };
 
